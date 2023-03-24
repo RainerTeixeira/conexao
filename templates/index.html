@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Exemplo de Servidores</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+	<script>
+		var myChart;
+
+		$(document).ready(function () {
+			atualizaTabela();
+
+			setInterval(function () {
+				atualizaTabela();
+			}, 2000);
+		});
+
+		function 	atualizaTabela() {
+			$.getJSON('/servidores', function (data) {
+				var labels = [git init;
+				var values = [];
+				$.each(data, function (key, val) {
+					labels.push(val.Servidor);
+					values.push(val["Latência (ms)"]);
+				});
+
+				$('#tabela-servidores tbody').empty();
+
+				var items = [];
+				$.each(data, function (key, val) {
+					items.push('<tr><td>' + val.Servidor + '</td><td>' + val["Endereço IP"] + '</td><td>' + val["Latência (ms)"] +'</td><td>' + val.Status + '</td></tr>');
+				});
+				$('#tabela-servidores tbody').html(items.join(''));
+
+				if (myChart) {
+					myChart.destroy();
+				}
+
+				var ctx = document.getElementById('grafico-servidores').getContext('2d');
+				myChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: labels,
+						datasets: [{
+							label: 'Latência (ms)',
+							data: values,
+							backgroundColor: [
+								'red',
+								'green',
+								'blue',
+								'yellow',
+								'purple',
+								'orange'
+							],
+							borderWidth: 1
+						}]
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						}
+					}
+				});
+			});
+		}
+	</script>
+	<style>
+		/* Estilo para o corpo da página */
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+
+		/* Estilo para o cabeçalho da página */
+		h1 {
+			color: #333;
+			text-align: center;
+		}
+
+		/* Estilo para a tabela */
+		table {
+			border-collapse: collapse;
+			margin: 20px auto;
+			width: 80%;
+		}
+
+		/* Estilo
+ para o corpo da página */
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+		}
+
+		/* Estilo para o cabeçalho da página */
+		h1 {
+			color: #333;
+			text-align: center;
+		}
+
+		/* Estilo para a tabela */
+		table {
+			border-collapse: collapse;
+			margin: 20px auto;
+			width: 80%;
+		}
+
+		/* Estilo para as células da tabela */
+		td,
+		th {
+			border: 1px solid #ddd;
+			padding: 8px;
+			text-align: left;
+		}
+
+		/* Estilo para as células do cabeçalho da tabela */
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+
+		/* Estilo para as linhas alternadas da tabela */
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		/* Estilo para os links */
+		a {
+			color: #4CAF50;
+			text-decoration: none;
+		}
+
+		/* Estilo para os links ao passar o mouse */
+		a:hover {
+			text-decoration: underline;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Lista de Servidores</h1>
+	<table id="tabela-servidores">
+
+
+		<thead>
+			<tr>
+				<th>Servidor</th>
+				<th>Endereço IP</th>
+				<th>Latência (ms)</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<canvas id="grafico-servidores"></canvas>
+</body>
+
+</html>
