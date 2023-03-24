@@ -1,0 +1,47 @@
+/* Estilo para o corpo da página */
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para o cabeçalho da página */
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Estilo para a tabela */
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 80%;
+}
+
+/* Estilo para as células da tabela */
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Estilo para as células do cabeçalho da tabela */
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Estilo para as linhas alternadas da tabela */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilo para os links */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+/* Estilo para os links ao passar o mouse */
+a:hover {
+    text-decoration: underline;
+}

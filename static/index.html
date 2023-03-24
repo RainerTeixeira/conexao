@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exemplo de Flask</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.get("/servidores", function(data, status) {
+        var tableHtml = "<table><thead><tr><th>Servidor</th><th>Endereço IP</th><th>Latência (ms)</th></tr></thead><tbody>";
+        for (var i = 0; i < data.length; i++) {
+          var row = "<tr><td>" + data[i].Servidor + "</td><td>" + data[i]['Endereço IP'] + "</td><td>" + data[i]['Latência (ms)'] + "</td></tr>";
+          tableHtml += row;
+        }
+        tableHtml += "</tbody></table>";
+        $("#servidores").html(tableHtml);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Informações dos servidores</h1>
+  <div id="servidores"></div>
+</body>
+</html>
